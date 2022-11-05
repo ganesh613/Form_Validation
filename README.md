@@ -5,10 +5,9 @@ a general form validation using PHP and MySQL
         <b>Pre-requisites are :<b/>
         
                 1. XAMPP server
-                2. In config.php you need set your port which you are running
-                   if you are using default port no need to metion port number after "localhost"
-                3. you need to change some configuration settings XAMPP server
-                   (if you have locally installed MySQL then you must change the configuration and port number)
+                2. if you have locally installed MySQL the stop the process from 
+                   CTRL+R  -> services.msc -> MySQL 
+                   the stop the process
 <p/>
                 
 <h2>XAMPP server <a href="https://www.apachefriends.org/">download XAMPP<a/><h2/>
