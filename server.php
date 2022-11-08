@@ -30,27 +30,75 @@ if (array_key_exists("signUp", $_POST)) {
      }
     if (!$password) {
         $error .= "Password is required <br>";
-        
      }
-
      if ($password !== $repeatPassword) {
         $error .= "Password does not match <br>";
      }
-     if ($error) {
+     //password validation code
+
+     $n=$password;
+     $l=strlen($n);
+    $cp=$sm=$nm=$sy=0;
+    $cp1=$sm1=$nm1=$sy1=0;
+     for($i=0;$i<$l;$i++)
+  { 
+    $v=$n[$i];
+    $x=ord($n[$i]);
+//     echo "<br>".$v.'='.$x;
+    if($x>=65 && $x<=90)
+    {
+      $cp++;
+      $cp1=1;
+
+    }
+    else if($x>=97 && $x<=122)
+    {
+      $sm++;
+      $sm1=1;
+    }
+    else if($x>=48 && $x<=57)
+    {
+      $nm++;
+      $nm1=1;
+
+    }
+    else{
+      $sy++;
+      $sy1=1;
+    }
+  }
+
+$r= $cp1+$sm1+$nm1+$sy1;
+if($cp1==0 ){
+    $error.="Password must have atleast one uppercase letter";
+}
+if($sm1==0){
+ $error.="Password must have atleast one lowercase letter";   
+}
+if($nm1==0){
+ $error.="Password must have atleast one number";   
+}
+if($sy1==0){
+ $error.="Password must have atleast one special character";   
+}
+
+
+//end of validation
+     if ($error ) {
         $error = "<b>There were error(s) in your form!</b> <br>".$error;
      }  else {
        
         //Check if email is already exist in the Database
  
-        $query = "SELECT id FROM details WHERE email = '$email'";
+        $query = "SELECT id FROM details WHERE email = '$email' or name='$name'";
         $result = mysqli_query($linkDB, $query);
         if (mysqli_num_rows($result) > 0) {
-            $error .="<p>Your email has taken already!</p>";
+            $error .="<p>Your email or id has taken already!</p>";
         } else {
 
             //Password encryption or Password Hashing
             // $hashedPassword = password_hash($password, PASSWORD_DEFAULT); 
-            $hashedPassword=md5($password);
+            $hashedPassword=md5($password); 
 
             $query = "INSERT INTO details (name, email, password) VALUES ('$name', '$email', '$hashedPassword')";
              
@@ -99,13 +147,14 @@ if (array_key_exists("logIn", $_POST)) {
        if ($error2) {
           $error2 = "<b>There were error(s) in your form!</b><br>".$error2;
        }
-        
+       
       else {        
           //matching email and password
  
             $query = "SELECT * FROM details WHERE email='$email'";
             $result = mysqli_query($linkDB, $query);
             $row = mysqli_fetch_array($result);
+            
             // echo $hashedPassword."<br/>";
             // echo $row['password']."<br/>";
             if (isset($row)) {
