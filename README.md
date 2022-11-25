@@ -24,6 +24,9 @@ Note:
         you must create database name as "userdetails" in phpMyadmin
         and must create table name as "details"
         and add columns as "name" , "email" , "password"
+        should be same as below
+        
+        <img src="databasepro.JPG"/>
        </p>
 <pre/>
     
